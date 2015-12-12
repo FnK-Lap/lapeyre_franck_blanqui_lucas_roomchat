@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RoomChat</string>
+    <string name="message_hint">Votre message ...</string>
+    <string name="send">Envoyer</string>
+
+</resources>
