@@ -35,9 +35,7 @@ public class MainActivity extends Activity {
 		Firebase.setAndroidContext(this);
 		Firebase rootRef = new Firebase("https://supfirechat.firebaseio.com/message");
 		setContentView(R.layout.activity_main);
-		setupMessagePosting();
-		
-	
+		setupMessagePosting(rootRef);
 		
 		rootRef.addValueEventListener(new ValueEventListener() {
 			@Override
@@ -62,8 +60,7 @@ public class MainActivity extends Activity {
 	}
 	
 	
-	
-	private void setupMessagePosting() {
+	private void setupMessagePosting(final Firebase rootRef) {
         // Find the text field and button
         etMessage = (EditText) findViewById(R.id.etMessage);
         btSend = (Button) findViewById(R.id.btSend);
@@ -74,17 +71,18 @@ public class MainActivity extends Activity {
         mFirstLoad = true;
     	mAdapter = new ChatListAdapter(MainActivity.this, mMessages);
     	lvChat.setAdapter(mAdapter);
-
-        // When send button is clicked, create message object on Parse
-        btSend.setOnClickListener(new OnClickListener() {
-
+    	
+    	btSend.setOnClickListener(new OnClickListener() {
+        	
             @Override
             public void onClick(View v) {
                 String data = etMessage.getText().toString();
-                
-                etMessage.setText("Data + "+data);
+                System.out.println(data);
+                rootRef.push().setValue(data);
+                etMessage.setText("");
             }
         });
+    	
 }
 
 }
